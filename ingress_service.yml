@@ -14,11 +14,11 @@ spec:
               service:
                 name: page1-service
                 port:
-                  number: 80
+                  number: 8000
           - path: /page2
             pathType: Prefix
             backend:
               service:
                 name: page2-service
                 port:
-                  number: 80
+                  number: 8080
