@@ -1,43 +1,42 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: page1-service
+  name: orders-service
 spec:
-  type: NodePort
   ports:
     - protocol: TCP
-      port: 8000
+      port: 8080
       targetPort: 80
   selector:
-    app: page1
+    app: orders
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: page1-deployment
+  name: orders
 spec:
   selector:
     matchLabels:
-      app: page1
+      app: orders
   replicas: 2
   template:
     metadata:
       labels:
-        app: page1
+        app: orders
     spec:
       containers:
-        - name: page1
+        - name: orders
           image: httpd:alpine3.17
           ports:
             - containerPort: 8000
           volumeMounts:
-            - name: page1-index
+            - name: orders-index
               mountPath: /usr/local/apache2/htdocs/index.html
               subPath: index.html
       volumes:
-        - name: page1-index
+        - name: orders-index
           configMap: 
-            name: page1-config
+            name: orders-config
             items:
               - key: index.html
                 path: index.html

@@ -1,43 +1,42 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: page2-service
+  name: campaigns-service
 spec:
-  type: NodePort
   ports:
     - protocol: TCP
-      port: 8080
+      port: 8000
       targetPort: 80
   selector:
-    app: page2
+    app: campaigns
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: page2-deployment
+  name: campaigns
 spec:
   selector:
     matchLabels:
-      app: page2
+      app: campaigns
   replicas: 2
   template:
     metadata:
       labels:
-        app: page2
+        app: campaigns
     spec:
       containers:
-        - name: page2
+        - name: campaigns
           image: httpd:alpine3.17
           ports:
-            - containerPort: 8080
+            - containerPort: 8000
           volumeMounts:
-            - name: page2-index
+            - name: campaigns-index
               mountPath: /usr/local/apache2/htdocs/index.html
               subPath: index.html
       volumes:
-        - name: page2-index
+        - name: campaigns-index
           configMap: 
-            name: page2-config
+            name: campaigns-config
             items:
               - key: index.html
                 path: index.html
