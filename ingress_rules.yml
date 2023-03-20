@@ -8,17 +8,17 @@ spec:
   rules:
      - http:
         paths:
-          - path: /page1
+          - path: /campaigns
             pathType: Prefix
             backend:
               service:
-                name: page1-service
+                name: campaigns-service
                 port:
-                  number: 80
-          - path: /page2
+                  number: 8000
+          - path: /orders
             pathType: Prefix
             backend:
               service:
-                name: page2-service
+                name: orders-service
                 port:
-                  number: 80
+                  number: 8080
